@@ -20,7 +20,6 @@ import {
   FaRegChartBar
 } from 'react-icons/fa';
 
-import heroBackground from './Image6.png';
 
 
 
@@ -159,7 +158,7 @@ const Main: FC = () => {
     return () => clearInterval(typingInterval);
   }, []);
   const heroSectionStyle = {
-    backgroundImage: "/Image6.png" , // Replace with your actual background image path
+    backgroundImage: 'url("/Image6.png")' , // Replace with your actual background image path
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
