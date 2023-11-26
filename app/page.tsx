@@ -19,6 +19,7 @@ import {
   FaGlobe,
   FaRegChartBar
 } from 'react-icons/fa';
+import Image3 from '/Image6.jpg'
 
 // NavBar Component
 const NavBar: FC = () => {
@@ -155,7 +156,7 @@ const Main: FC = () => {
     return () => clearInterval(typingInterval);
   }, []);
   const heroSectionStyle = {
-    backgroundImage: 'url("/Image6.png")', // Replace with your actual background image path
+    backgroundImage: 'url("/Image6.jpg")', // Replace with your actual background image path
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
