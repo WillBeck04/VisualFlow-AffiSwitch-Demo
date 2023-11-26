@@ -89,7 +89,7 @@ export default function Signup() {
 
         <div
           className="bg-cover bg-center h-screen flex justify-center items-center"
-          style={{ backgroundImage: 'url("/image6.png")' }}
+          style={{ backgroundImage: 'url("/Image6.png")' }}
         >
             
           <div className="bg-white p-8 rounded-lg shadow-md w-80 ">

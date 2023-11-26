@@ -88,7 +88,7 @@ export default function Login() {
           <div
             className="bg-cover bg-center h-screen flex justify-center items-center"
             style={{
-                backgroundImage: 'url("/image6.png")',
+                backgroundImage: 'url("/Image6.png")',
                  // Adjust the width percentage as needed
               }}
           >
