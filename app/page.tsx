@@ -159,7 +159,7 @@ const Main: FC = () => {
     return () => clearInterval(typingInterval);
   }, []);
   const heroSectionStyle = {
-    backgroundImage: 'url("/Image6.jpg")', // Replace with your actual background image path
+    backgroundImage: "/Image6.png" , // Replace with your actual background image path
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
