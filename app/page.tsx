@@ -19,7 +19,10 @@ import {
   FaGlobe,
   FaRegChartBar
 } from 'react-icons/fa';
-import Image3 from '/Image6.jpg'
+
+import heroBackground from './Image6.png';
+
+
 
 // NavBar Component
 const NavBar: FC = () => {
@@ -193,13 +196,13 @@ const Main: FC = () => {
             </div>
           </div>
           <div className="md:w-1/2">
-            <Image
-              src="/image3.png"
-              alt="VisualFlow Image"
-              width={900}
-              height={400}
-              className="rounded-lg"
-            />
+          <Image
+          src="/Image3.png" // Use imported image here
+          alt="VisualFlow Image"
+          width={900}
+          height={400}
+          className="rounded-lg"
+        />
           </div>
         </div>
       </div>
