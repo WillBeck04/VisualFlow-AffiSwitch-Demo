@@ -10,6 +10,7 @@ import { Bar, Doughnut, Line, Pie, PolarArea, Radar } from 'react-chartjs-2';
 import { parse, unparse } from 'papaparse'; // Added unparse for exporting CSV
 import { IconType } from 'react-icons';
 
+import { FaFileUpload, FaFileAlt } from 'react-icons/fa';
 
 
 // TypeScript type for NavBarProps
@@ -87,55 +88,51 @@ type MenuButtonProps = {
 
 // Dashboard component
 const Dashboard = () => {
-  const [isNavOpen, setIsNavOpen] = useState(true);
-  const router = useRouter();
-  const handleCreateProject = () => {
-    router.push('/Home/Dashboard');
-  };
-
-  const handleExistingProjects = () => {
-    router.push('/Home/Dashboard/ExistingProjects');
-  };
-
-  const handleAIAssistant = () => {
-    router.push('/Home/Dashboard/AIChat');
-  };
-
-  return (
-    <div className="flex">
-      <NavBar onLogout={() => router.push('/login')} />
-      <div className="content flex-1" style={{ marginLeft: isNavOpen ? '40px' : '20px', ...backgroundStyle }}>
-        <div className="flex justify-end p-4">
-          <div className="search-bar">
-            <input type="text" placeholder="Search..." className="border p-2 rounded" />
+    const [isNavOpen, setIsNavOpen] = useState(true);
+    const router = useRouter();
+  
+    // Function to navigate to Upload CSV route
+    const handleUploadCSV = () => {
+      router.push('/Home/Dashboard/CreateProject/Uploadcsv');
+    };
+  
+    // Function to navigate to Create CSV route
+    const handleCreateCSV = () => {
+      router.push('/Home/Dashboard/CreateProject/Uploadcsv');
+    };
+  
+    return (
+      <div className="flex">
+        <NavBar onLogout={() => router.push('/login')} />
+        <div className="content flex-1" style={{ marginLeft: isNavOpen ? '40px' : '20px', ...backgroundStyle }}>
+          <div className="flex justify-end p-4">
+            <div className="search-bar">
+              <input type="text" placeholder="Search..." className="border p-2 rounded" />
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center items-center h-screen">
-          <motion.div
-            className="project-box p-16 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
-            onClick={handleCreateProject}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaPlus className="text-6xl mb-3 text-gray-500" />
-            <div className="text-2xl font-semibold">Create New Project</div>
-          </motion.div>
-          <motion.div
-            className="project-box p-16 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaChartBar className="text-6xl mb-3 text-gray-500" />
-            <div className="text-2xl font-semibold">Existing Projects</div>
-          </motion.div>
-          <motion.div
-            className="project-box p-16 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaComments className="text-6xl mb-3 text-gray-500" />
-            <div className="text-2xl font-semibold">VisualFlow AI Chat</div>
-          </motion.div>
+          <div className="flex justify-center items-center h-screen">
+            {/* Upload CSV Box */}
+            <motion.div
+              className="project-box p-20 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
+              onClick={handleUploadCSV}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaFileUpload className="text-6xl mb-3 text-gray-500" />
+              <div className="text-2xl font-semibold">Upload CSV File</div>
+            </motion.div>
+  
+            {/* Create CSV Box */}
+            <motion.div
+              className="project-box p-20 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
+              onClick={handleCreateCSV}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaFileAlt className="text-6xl mb-3 text-gray-500" />
+              <div className="text-2xl font-semibold">Create CSV File</div>
+            </motion.div>
+            
         </div>
         <div className="ai-assistant fixed bottom-0 right-0 p-4 flex items-center" style={{ marginRight: isNavOpen ? '40px' : '20px' }}>
           <FaRobot className="text-4xl text-blue-500 mr-4" />
