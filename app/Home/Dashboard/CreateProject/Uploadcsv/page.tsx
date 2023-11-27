@@ -217,12 +217,7 @@ const MenuButton: React.FC<{ text: string; Icon: IconType; onClick?: () => void 
             >
               <FaUpload className="mr-2" /> Upload CSV
             </label>
-            <button
-              onClick={addNewRow}
-              className="px-10 py-0.5 bg-gray-500 text-white rounded-full hover:bg-gray-700 transition-colors duration-300"
-            >
-              <FaPlus className="mr-2" /> Add Row
-            </button>
+            
           </div>
   
           {/* Chart Display */}
@@ -268,8 +263,17 @@ const MenuButton: React.FC<{ text: string; Icon: IconType; onClick?: () => void 
                   <FaTrash />
                 </button>
               </div>
+              
             ))}
           </div>
+          <div className="flex justify-start">
+          <button
+              onClick={addNewRow}
+              className="px-10 py-0.5 bg-gray-500 text-white rounded-full hover:bg-gray-700 transition-colors duration-300"
+            >
+              <FaPlus className="mr-2" /> Add Row
+            </button>
+</div>
         </div>
       </div>
     );
