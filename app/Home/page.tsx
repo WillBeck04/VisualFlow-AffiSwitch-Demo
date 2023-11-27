@@ -94,11 +94,11 @@ const Dashboard = () => {
   };
 
   const handleExistingProjects = () => {
-    router.push('/Home/Dashboard/ExistingProjects');
+    router.push('/Home/Dashboard');
   };
 
   const handleAIAssistant = () => {
-    router.push('/Home/Dashboard/AIChat');
+    router.push('/Home/Dashboard');
   };
 
   return (
