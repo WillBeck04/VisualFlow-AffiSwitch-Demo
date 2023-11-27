@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { FaUpload, FaHome, FaChartBar, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { useRouter } from 'next/navigation'; // Corrected import
+import { FaUpload, FaHome, FaChartBar, FaCog, FaSignOutAlt, FaBars } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Bar, Doughnut, Line, Pie, PolarArea, Radar } from 'react-chartjs-2';
-import { parse } from 'papaparse';
+import { parse, unparse } from 'papaparse'; // Added unparse for exporting CSV
 import { IconType } from 'react-icons';
 import {
   Chart as ChartJS,
@@ -36,36 +36,15 @@ ChartJS.register(
   Legend
 );
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
-// Define a type for user data
-type UserData = {
-  name: string;
-  last_name: string;
-  email: string;
-};
-type CsvDataRow = {
-  label: string;
-  value1: number;
-  value2: number;
-};
+type UserData = { name: string; last_name: string; email: string; };
+type CsvDataRow = { label: string; value1: number; value2: number; };
 type ChartDataType = {
   labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-  }[];
+  datasets: { label: string; data: number[]; backgroundColor: string; }[];
 };
+
+
+
 
 // TypeScript type for NavBarProps
 type NavBarProps = {
@@ -73,33 +52,44 @@ type NavBarProps = {
 };
 
 // NavBar component with TypeScript type
-const NavBar: React.FC<NavBarProps> = ({ onLogout }) => {
+const NavBar: React.FC<{ onLogout: () => void; }> = ({ onLogout }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
-    <nav className="bg-gray-800 w-60 min-h-screen text-white">
+    <nav className={`bg-navy-blue text-gray-500 w-60 min-h-screen transition-width duration-300 ${isOpen ? 'w-60' : 'w-20'}`}>
       <div className="flex flex-col items-center py-4">
         <Logo />
         <MenuButton text="Home" Icon={FaHome} />
         <MenuButton text="Analytics" Icon={FaChartBar} />
         <MenuButton text="Settings" Icon={FaCog} />
-        <MenuButton text="Logout" Icon={FaSignOutAlt} action={onLogout} />
+        <MenuButton text="Logout" Icon={FaSignOutAlt} onClick={onLogout} />
       </div>
     </nav>
   );
 };
 
 // Logo component
-const Logo = () => {
-  return (
-    <motion.div
-      className="text-3xl font-bold text-blue-300 mb-10"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      VisualFlow
-    </motion.div>
-  );
-};
+const Logo = () => (
+  <motion.div
+    className="text-3xl font-bold text-gray-500 mb-10"
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    VisualFlow
+  </motion.div>
+);
+const MenuButton: React.FC<{ text: string; Icon: IconType; onClick?: () => void; }> = ({ text, Icon, onClick }) => (
+  <motion.button
+    className="flex items-center px-4 py-2 hover:bg-blue-500 w-full"
+    onClick={onClick}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Icon className="mr-2" />
+    {text}
+  </motion.button>
+);
 
 // TypeScript type for MenuButtonProps
 type MenuButtonProps = {
@@ -109,24 +99,12 @@ type MenuButtonProps = {
 };
 
 // MenuButton component with TypeScript type
-const MenuButton: React.FC<MenuButtonProps> = ({ text, Icon, action }) => {
-  return (
-    <motion.button
-      className="flex items-center px-4 py-2 hover:bg-blue-600 w-full"
-      onClick={action}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <Icon className="mr-2" />
-      {text}
-    </motion.button>
-  );
-};
+
 
 // Dashboard component
 const Dashboard = () => {
   const [userData, setUserData] = useState<UserData>({ name: 'Guest', last_name: '', email: '' });
-  
+  const [csvData, setCsvData] = useState<CsvDataRow[]>([]);
   const router = useRouter();
   const [chartData, setChartData] = useState<ChartDataType | null>(null);
 
@@ -137,50 +115,77 @@ const Dashboard = () => {
       reader.onload = () => {
         parse(reader.result as string, {
           header: true,
+          skipEmptyLines: true,
           complete: (results) => {
             const data: CsvDataRow[] = results.data as CsvDataRow[];
-            const labels = data.map((item) => item.label);
-            const value1 = data.map((item) => item.value1);
-            const value2 = data.map((item) => item.value2);
-  
-            setChartData({
-              labels,
-              datasets: [
-                {
-                  label: 'Value 1',
-                  data: value1,
-                  backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                },
-                {
-                  label: 'Value 2',
-                  data: value2,
-                  backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                },
-              ],
-            });
+            setCsvData(data); // Save CSV data for display and editing
+            updateChartData(data);
           },
         });
       };
       reader.readAsText(file);
     }
   };
+  const addNewRow = () => {
+    const newRow: CsvDataRow = { label: '', value1: 0, value2: 0 };
+    setCsvData([...csvData, newRow]);
+  };
+
+  // Function to delete a row from the CSV data
+  const deleteRow = (index: number) => {
+    const newData = [...csvData];
+    newData.splice(index, 1);
+    setCsvData(newData);
+    updateChartData(newData);
+  };
+
+  const updateChartData = (data: CsvDataRow[]) => {
+    const labels = data.map((item) => item.label);
+    const value1 = data.map((item) => item.value1);
+    const value2 = data.map((item) => item.value2);
+
+    setChartData({
+      labels,
+      datasets: [
+        {
+          label: 'Value 1',
+          data: value1,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+        {
+          label: 'Value 2',
+          data: value2,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        },
+      ],
+    });
+  };
+
+  const handleCsvDataChange = (index: number, field: keyof CsvDataRow, value: string) => {
+    const updatedCsvData = [...csvData];
+    const updatedValue = field === 'label' ? value : Number(value);
+    updatedCsvData[index] = { ...updatedCsvData[index], [field]: updatedValue };
+    setCsvData(updatedCsvData);
+    updateChartData(updatedCsvData);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     router.push('/login');
   };
+
   const chartContainerStyle: React.CSSProperties = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    marginTop: '20px'
+    marginTop: '20px',
   };
 
   const chartStyle: React.CSSProperties = {
-    width: 'calc(33% - 20px)', // Each chart takes up 1/3 of the width minus some margin
+    width: 'calc(33% - 20px)',
     height: '300px',
-    marginBottom: '20px'
+    marginBottom: '20px',
   };
 
   const backgroundStyle = {
@@ -197,7 +202,9 @@ const Dashboard = () => {
         <h1 className="text-2xl font-semibold text-gray-200 mb-4">
           Welcome, {userData.name}
         </h1>
-        <input type="file" accept=".csv" onChange={handleFileUpload} />
+        <input type="file" accept=".csv" onChange={handleFileUpload} className="mb-4" />
+
+        {/* Chart Display */}
         <div style={chartContainerStyle}>
           {chartData && (
             <>
@@ -209,6 +216,34 @@ const Dashboard = () => {
               <div style={chartStyle}><Radar data={chartData} /></div>
             </>
           )}
+        </div>
+
+        {/* Editable CSV Data Table */}
+        <div className="my-4">
+          <button onClick={addNewRow} className="mb-4 p-2 bg-blue-500 text-white rounded">Add Row</button>
+          {csvData.map((row, index) => (
+            <div key={index} className="flex justify-between mb-2 items-center">
+              <input
+                type="text"
+                value={row.label}
+                onChange={(e) => handleCsvDataChange(index, 'label', e.target.value)}
+                className="p-1 border border-gray-300 mr-2 rounded"
+              />
+              <input
+                type="number"
+                value={row.value1}
+                onChange={(e) => handleCsvDataChange(index, 'value1', e.target.value)}
+                className="p-1 border border-gray-300 mr-2 rounded"
+              />
+              <input
+                type="number"
+                value={row.value2}
+                onChange={(e) => handleCsvDataChange(index, 'value2', e.target.value)}
+                className="p-1 border border-gray-300 mr-2 rounded"
+              />
+              <button onClick={() => deleteRow(index)} className="bg-red-500 text-white p-1 rounded">Delete</button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -172,13 +172,13 @@ const Main: FC = () => {
       <NavBar />
       <div className="flex items-center justify-center" style={{ height: '100vh', ...heroSectionStyle }}>
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-center h-full">
-          <div className="flex flex-col justify-center items-center md:w-1/2 space-y-6">
-            <div className="h-32 flex items-center justify-center">
+          <div className="flex flex-col justify-center items-center md:w-1/2 space-y-6 ">
+            <div className="h-32 flex items-center text-left">
               <motion.h1
-                className="text-6xl font-bold text-gray-800"
+                className="text-6xl font-bold text-gray-800  text-left"
                 // ... [motion props]
               >
-                <span className="block overflow-hidden">
+                <span className="block overflow-hidden text-left">
                   {visualFlowText.substring(0, textIndex)}
                   {cursorVisible && <span className="text-gray-600 opacity-50">|</span>}
                 </span>
