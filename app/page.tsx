@@ -39,10 +39,13 @@ const NavBar: FC = () => {
                 href = '/'; // Home page route
                 break;
               case 'About Us':
-                href = '/about_us'; // About Us page route
+                href = '/Home/Aboutus'; // About Us page route
                 break;
               case 'Pricing':
-                href = '/pricing'; // Pricing page route
+                href = '/Home/prices'; // Pricing page route
+                break;
+                case 'Contact':
+                href = '/Home/Contact'; // Pricing page route
                 break;
               default:
                 href = `/${item.toLowerCase()}`; // Default route for other items

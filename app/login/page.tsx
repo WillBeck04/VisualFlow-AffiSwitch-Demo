@@ -4,47 +4,50 @@ import { useRouter } from 'next/navigation';
 import React, { FC, useState } from 'react';
 
 const NavBar: FC = () => {
-    return (
-      <nav className="sticky top-0 bg-white shadow z-50">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/">
-            <button className="font-bold text-xl text-gray-800">VisualFlow</button>
-          </Link>
-          <div className="flex space-x-4">
-            {['Pricing', 'About Us', 'Contact'].map((item, index) => {
-              let href = '';
-              switch (item) {
-                case 'Home':
-                  href = '/'; // Home page route
-                  break;
-                case 'About Us':
-                  href = '/about_us'; // About Us page route
-                  break;
-                case 'Pricing':
-                  href = '/pricing'; // Pricing page route
-                  break;
-                default:
-                  href = `/${item.toLowerCase()}`; // Default route for other items
-              }
-              return (
-                <Link key={index} href={href}>
-                  <button className="text-gray-600 hover:text-cyan-500 cursor-pointer text-sm uppercase">{item}</button>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="flex space-x-2">
-            <Link href="/login">
-              <button className="text-gray-500 font-bold py-2 px-2 rounded">Login</button>
-            </Link>
-            <Link href="/signup">
-              <button className="text-gray-500 font-bold py-2 px-2 rounded">Sign Up</button>
-            </Link>
-          </div>
+  return (
+    <nav className="sticky top-0 bg-white shadow z-50">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <Link href="/">
+          <button className="font-bold text-xl text-gray-800">VisualFlow</button>
+        </Link>
+        <div className="flex space-x-4">
+          {['Pricing', 'About Us', 'Contact'].map((item, index) => {
+            let href = '';
+            switch (item) {
+              case 'Home':
+                href = '/'; // Home page route
+                break;
+              case 'About Us':
+                href = '/Home/Aboutus'; // About Us page route
+                break;
+              case 'Pricing':
+                href = '/Home/prices'; // Pricing page route
+                break;
+                case 'Contact':
+                href = '/Home/Contact'; // Pricing page route
+                break;
+              default:
+                href = `/${item.toLowerCase()}`; // Default route for other items
+            }
+            return (
+              <Link key={index} href={href}>
+                <button className="text-gray-600 hover:text-cyan-500 cursor-pointer text-sm uppercase">{item}</button>
+              </Link>
+            );
+          })}
         </div>
-      </nav>
-    );
-  };
+        <div className="flex space-x-2">
+          <Link href="/login">
+            <button className="text-gray-500 font-bold py-2 px-2 rounded">Login</button>
+          </Link>
+          <Link href="/signup">
+            <button className="text-gray-500 font-bold py-2 px-2 rounded">Sign Up</button>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default function Login() {
     const [formData, setFormData] = useState({
@@ -112,12 +115,10 @@ export default function Login() {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-md py-2 px-3 mb-3"
             />
-            <button
-              type="submit"
-              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-md"
-            >
-              Login
-            </button>
+           
+            <Link href="/Home">
+            <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-md">Login</button>
+          </Link>
           </form>
           {errorMessage && <div className="text-red-500 mt-0">{errorMessage}</div>}
         </div>
