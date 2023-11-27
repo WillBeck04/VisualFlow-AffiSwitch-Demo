@@ -109,13 +109,13 @@ const AboutUs: FC = () => {
             >
               <h2 className="text-4xl font-bold mb-4">Our Story</h2>
               <p className="text-lg mb-4">
-                At VisualFlow, we harness the elegance of mathematics and the power of computer science to elevate data storytelling. Our founder's journey began at McGill, where a Bachelor's degree in Math and Computer Science laid the foundation for a platform dedicated to insightful data visualization.
+                At VisualFlow, we harness the elegance of mathematics and the power of computer science to elevate data storytelling. Our founder&apos;s journey began at McGill, where a Bachelor&apos;s degree in Math and Computer Science laid the foundation for a platform dedicated to insightful data visualization.
               </p>
               <p className="text-lg mb-4">
                 The concept for VisualFlow emerged from the idea that data, when visualized effectively, can communicate stories and drive understanding far beyond spreadsheets and charts.
               </p>
               <p className="text-lg mb-4">
-                Today, VisualFlow stands as a testament to innovation, bridging numbers and narratives to deliver clarity and reveal the beauty hidden in data patterns. It's a canvas for creators, thinkers, and anyone who believes that data has a story to tell.
+                Today, VisualFlow stands as a testament to innovation, bridging numbers and narratives to deliver clarity and reveal the beauty hidden in data patterns. It&apos;s a canvas for creators, thinkers, and anyone who believes that data has a story to tell.
               </p>
               <div className="flex text-3xl">
                 <FaHeart className="mr-4" />

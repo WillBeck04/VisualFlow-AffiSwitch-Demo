@@ -214,7 +214,7 @@ const Main: FC = () => {
           <div className="flex justify-between items-center">
             <p className="text-gray-500 text-sm">© 2023 VisualFlow. All rights reserved.</p>
             <div className="text-gray-500">
-              <Link href="/privacy">
+              <Link href="/privacyyyyy">
                 <button className="text-gray-800">Privacy Policy</button>
               </Link>
             </div>

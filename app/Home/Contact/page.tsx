@@ -64,7 +64,7 @@ const NavBar: FC = () => {
             
             <div className="bg-white bg-opacity-25 p-6 rounded-lg shadow-lg">
               <h2 className="text-4xl font-bold mb-6">Get in Touch</h2>
-              <p className="mb-6">We'd love to hear from you! Reach out to us through any of the following methods:</p>
+              <p className="mb-6">We&apos;d love to hear from you! Reach out to us through any of the following methods:</p>
               <div className="flex justify-center gap-4 mb-6">
                 <FaEnvelope className="text-3xl text-cyan-500" />
                 <span className="align-middle">william.beck@mail.mcgill.ca</span>
