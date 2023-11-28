@@ -98,7 +98,7 @@ const Dashboard = () => {
   };
 
   const handleAIAssistant = () => {
-    router.push('/Home/Dashboard');
+    router.push('/Home/Dashboard/VisualFlowAI');
   };
 
   return (
@@ -130,6 +130,7 @@ const Dashboard = () => {
           </motion.div>
           <motion.div
             className="project-box p-16 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center cursor-pointer mx-6"
+            onClick={handleAIAssistant}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
