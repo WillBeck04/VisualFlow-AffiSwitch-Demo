@@ -98,7 +98,7 @@ const Dashboard = () => {
   };
 
   const handleAIAssistant = () => {
-    router.push('/Home/Dashboard/VisualFlowAI');
+    router.push('https://visual-flow-ai-m5dv.vercel.app/');
   };
 
   return (
